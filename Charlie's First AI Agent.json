@@ -1,0 +1,379 @@
+{
+  "name": "Charlie's First AI Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "💡 Later, activate this workflow and share the public chat URL to let others talk to your AI Agent!",
+        "height": 252,
+        "width": 300,
+        "color": 7
+      },
+      "id": "2b55763c-0541-4133-aa79-87c3ce9f0564",
+      "cid": "Ikx1Y2FzIFBleXJpbiI",
+      "name": "Sticky Note12",
+      "type": "n8n-nodes-base.stickyNote",
+      "creator": "Lucas Peyrin",
+      "position": [
+        0,
+        320
+      ],
+      "typeVersion": 1,
+      "notes": "© 2025 Lucas Peyrin"
+    },
+    {
+      "parameters": {
+        "toolDescription": "Gets the latest blog posts about any rss feed.",
+        "url": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('URL', `Use one of:\n- https://feeds.bbci.co.uk/news/world/rss.xml (BBC World – global headlines)\n- https://www.aljazeera.com/xml/rss/all.xml (Al Jazeera English – in‑depth global coverage)\n- http://rss.cnn.com/rss/edition_world.rss (CNN World – breaking news worldwide)\n- https://techcrunch.com/feed/ (TechCrunch – global tech & startup news)\n- http://news.ycombinator.com/rss (Hacker News – tech community headlines)\n- https://n8n.io/blog/rss (n8n Blog – updates & tutorials)\n- https://www.bonappetit.com/feed/recipes-rss-feed/rss (Bon Appétit – recent recipes list)\n- https://www.endsreport.com/rss/news-and-analysis (ENDS Report – environmental law & policy news)\n- https://medlineplus.gov/groupfeeds/new.xml (MedlinePlus – health topics & wellness updates)`, 'string') }}",
+        "options": {}
+      },
+      "id": "24fc1fd5-ed10-43d9-9b35-8facb7f357d5",
+      "cid": "Ikx1Y2FzIFBleXJpbiI",
+      "name": "Get News",
+      "type": "n8n-nodes-base.rssFeedReadTool",
+      "creator": "Lucas Peyrin",
+      "position": [
+        1584,
+        704
+      ],
+      "typeVersion": 1.2,
+      "notes": "© 2025 Lucas Peyrin"
+    },
+    {
+      "parameters": {
+        "toolDescription": "Get weather forecast anywhere, anytime. You can make requests by assuming most information, the only thing you need is the location (use the city name to infer lat and long automatically) and time period (assume today if not specified)",
+        "url": "https://api.open-meteo.com/v1/forecast",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "latitude",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters0_Value', `Latitude of the location, e.g. 45.75 for Lyon. Do not ask the user just infer it automatically.`, 'string') }}"
+            },
+            {
+              "name": "longitude",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters1_Value', `Longitude of the location, e.g. 4.85 for Lyon. Do not ask the user just infer it automatically.`, 'string') }}"
+            },
+            {
+              "name": "current",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters2_Value', `Comma-separated list of current weather variables (no whitespace).\n\nExample: temperature_2m,windspeed_10m,rain.\n\nOptions: temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,rain,showers,snowfall,weathercode,cloudcover_total,pressure_msl,surface_pressure,windspeed_10m,winddirection_10m,windgusts_10m.`, 'string') }}"
+            },
+            {
+              "name": "hourly",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters3_Value', `Comma-separated list of hourly weather variables (no whitespace). Hourly is only useful to get one day's information. For weakly overview please use daily.\n\nExample: temperature_2m,precipitation.\n\nOptions: temperature_2m,relative_humidity_2m,dewpoint_2m,apparent_temperature,precipitation,rain,showers,snowfall,snow_depth,pressure_msl,surface_pressure,cloudcover_total,cloudcover_low,cloudcover_mid,cloudcover_high,windspeed_10m,winddirection_10m,windgusts_10m,visibility,is_day,sunshine_duration,soil_temperature,soil_moisture,PM10,PM2_5,carbon_monoxide,ozone,us_aqi,UV_index.`, 'string') }}"
+            },
+            {
+              "name": "daily",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters4_Value', `Comma-separated list of daily weather variables (no whitespace).\n\nExample: temperature_2m_max,precipitation_sum.\n\nOptions: weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,precipitation_sum,rain_sum,showers_sum,snowfall_sum,precipitation_hours,sunrise,sunset,daylight_duration,sunshine_duration,pressure_msl_max,pressure_msl_min,surface_pressure_max,surface_pressure_min,windgusts_10m_max,windspeed_10m_max,winddirection_10m_dominant,shortwave_radiation_sum.`, 'string') }}"
+            },
+            {
+              "name": "start_date",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters5_Value', `Start date in YYYY-MM-DD format. Example: 2025-07-15`, 'string') }}"
+            },
+            {
+              "name": "end_date",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters6_Value', `End date in YYYY-MM-DD format. Must be after start_date. Example: 2025-07-18`, 'string') }}"
+            },
+            {
+              "name": "temperature_unit",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters7_Value', `Unit for temperature. Options: celsius (default), fahrenheit.`, 'string') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ac7d0dd1-8885-41c1-abda-f3742c838992",
+      "cid": "Ikx1Y2FzIFBleXJpbiI",
+      "name": "Get Weather",
+      "type": "n8n-nodes-base.httpRequestTool",
+      "creator": "Lucas Peyrin",
+      "position": [
+        1360,
+        704
+      ],
+      "notesInFlow": true,
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.chatInput }}\n```\n\n### **3. Check System Message:**\nShould include:\n```\nYou are a helpful assistant. Here is what you know about the user from previous conversations:\n\n{{ $json.formattedMemory }}\n\nIMPORTANT: Read the conversation history above carefully. If you see information about the user (like their name, profession, or interests), USE that information to answer their questions. When they ask \"who am I\", tell them what you learned about them from the conversations above.",
+        "options": {
+          "systemMessage": "=You are a helpful assistant. Here is the conversation history and user profile:\n\nEpisodic Memory: {{ $('HTTP Request 1 (search memory)').item.json.content.episodic_memory }}\nProfile Memory: {{ $('HTTP Request 1 (search memory)').item.json.content.profile_memory }}\n\nUse this context to provide personalized responses about the user. When you see information about the user in the episodic memory, use it to answer their questions."
+        }
+      },
+      "id": "332af12a-45ab-4e5d-8dab-da21ba2111f9",
+      "cid": "Ikx1Y2FzIFBleXJpbiI",
+      "name": "Your First AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "creator": "Lucas Peyrin",
+      "position": [
+        1104,
+        400
+      ],
+      "typeVersion": 2.2,
+      "notes": "© 2025 Lucas Peyrin"
+    },
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "Hi there! 👋",
+        "options": {
+          "inputPlaceholder": "Type your message here...",
+          "showWelcomeScreen": false,
+          "subtitle": "This is for demo purposes. Try me out !",
+          "title": "Your first AI Agent 🚀",
+          "responseMode": "lastNode"
+        }
+      },
+      "id": "95421925-c5ad-48bd-9638-c84ff5b5e3c6",
+      "cid": "Ikx1Y2FzIFBleXJpbiI",
+      "name": "Example Chat",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "creator": "Lucas Peyrin",
+      "position": [
+        112,
+        400
+      ],
+      "webhookId": "e5616171-e3b5-4c39-81d4-67409f9fa60a",
+      "typeVersion": 1.1,
+      "notes": "© 2025 Lucas Peyrin"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        992,
+        720
+      ],
+      "id": "f5d5fb1f-900d-4d5f-a6ca-f814e0e2b103",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "L7g6ePk2ZT9MgU3v",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const chatInput = $('Example Chat').item.json.chatInput;\nconst aiOutput = $('Your First AI Agent').item.json.output;\n\nreturn {\n  json: {\n    user_id: \"test_user\",\n    session: {\n      session_id: \"test_session\",\n      user_id: [\"test_user\"],\n      agent_id: [\"my_agent\"],\n      group_id: \"default_group\"\n    },\n    producer: \"my_agent\",\n    produced_for: \"test_user\",\n    episode_content: `User: ${chatInput}\\nAssistant: ${aiOutput}`,\n    episode_type: \"conversation\",\n    metadata: {}\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1488,
+        400
+      ],
+      "id": "4523ef95-9a06-4849-b5a4-55a8a2f777e0",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "jsCode": "const aiResponse = $('Your First AI Agent').item.json.output;\n\nreturn {\n  json: {\n    output: aiResponse\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1920,
+        400
+      ],
+      "id": "d675a73c-9292-4d0f-bf23-75e32e5c6eda",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:8080/v1/memories/search",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        640,
+        400
+      ],
+      "id": "cd05c40e-c72d-45cc-9ceb-a1f50cb38354",
+      "name": "HTTP Request 1 (search memory)"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:8080/v1/memories/",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1712,
+        400
+      ],
+      "id": "9084e9b9-58a2-4324-af83-6c9efff6b7a7",
+      "name": "HTTP Request2 (store memory)"
+    },
+    {
+      "parameters": {
+        "jsCode": "const chatInput = $('Example Chat').item.json.chatInput;\n\nreturn {\n  json: {\n    user_id: \"test_user\",\n    session: {\n      session_id: \"test_session\",\n      user_id: [\"test_user\"],\n      agent_id: [\"my_agent\"],\n      group_id: \"default_group\"\n    },\n    query: chatInput\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        400,
+        400
+      ],
+      "id": "12fff570-ab79-467c-9262-fba058f1f0dc",
+      "name": "Prepare search"
+    },
+    {
+      "parameters": {
+        "jsCode": "const searchResult = $input.first().json;\n\n// Add safety checks\nlet memoryText = \"Previous conversations:\\n\";\n\nif (searchResult && searchResult.content && searchResult.content.episodic_memory) {\n  const episodicMemory = searchResult.content.episodic_memory;\n  \n  if (episodicMemory[0] && episodicMemory[0].length > 0) {\n    episodicMemory[0].forEach(mem => {\n      if (mem && mem.content) {\n        memoryText += mem.content + \"\\n\\n\";\n      }\n    });\n  } else {\n    memoryText += \"No previous conversations.\";\n  }\n} else {\n  memoryText += \"No memory data available.\";\n}\n\nconst chatInput = $('Example Chat').item.json.chatInput;\n\nreturn {\n  json: {\n    chatInput: chatInput,\n    formattedMemory: memoryText\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        896,
+        400
+      ],
+      "id": "040582d9-d202-4ceb-8dfc-b25f8d39bdb6",
+      "name": "Format memory"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Get News": {
+      "ai_tool": [
+        [
+          {
+            "node": "Your First AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Weather": {
+      "ai_tool": [
+        [
+          {
+            "node": "Your First AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Example Chat": {
+      "main": [
+        [
+          {
+            "node": "Prepare search",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Your First AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Your First AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request2 (store memory)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request 1 (search memory)": {
+      "main": [
+        [
+          {
+            "node": "Format memory",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request2 (store memory)": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare search": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request 1 (search memory)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format memory": {
+      "main": [
+        [
+          {
+            "node": "Your First AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "65e04d12-31a2-4eab-9ef5-50ee677d3999",
+  "meta": {
+    "templateId": "6270",
+    "templateCredsSetupCompleted": true,
+    "instanceId": "5ed78b68ba806fffb653c3215a138b14a04fba759ad507e6294700d8348b97bf"
+  },
+  "id": "9Rhl2YJz6IH7WB6K",
+  "tags": []
+}
