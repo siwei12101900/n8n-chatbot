@@ -2,7 +2,7 @@
 
 ## Setup Requirements
 - n8n instance
-- FastAPI memory server running on port 8080
+- MemMachine running on port 8080
 - OpenAI API key
 
 ## Installation
@@ -16,3 +16,4 @@
 - Episodic memory search and storage
 - Profile memory support
 - Conversation history formatting
+
